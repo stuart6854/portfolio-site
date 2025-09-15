@@ -1,13 +1,17 @@
+'use client';
+
 import React from 'react';
+import { usePathname } from 'next/navigation';
+import NextLink from 'next/link';
 import { ThemeToggle } from './theme-toggle';
 import {
   NavigationMenu,
+  NavigationMenuIndicator,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import Link from 'next/link';
 
 const links: { title: string; href: string }[] = [
   {
@@ -32,16 +36,27 @@ const links: { title: string; href: string }[] = [
   },
 ];
 
+const Link = ({ href, children, ...props }: { href: string; children?: React.ReactNode }) => {
+  const pathname = usePathname();
+  const isActive = href == pathname;
+
+  return (
+    <NavigationMenuLink asChild active={isActive}>
+      <NextLink href={href} className='NavigationMenuLink' {...props}>
+        {children}
+      </NextLink>
+    </NavigationMenuLink>
+  );
+};
+
 export default function NavBar() {
   return (
     <div className='flex justify-center py-6 border-b-2'>
-      <NavigationMenu>
+      <NavigationMenu viewport={false}>
         <NavigationMenuList>
           {links.map((link) => (
-            <NavigationMenuItem>
-              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                <Link href={link.href}>{link.title}</Link>
-              </NavigationMenuLink>
+            <NavigationMenuItem key={link.title}>
+              <Link href={link.href}>{link.title}</Link>
             </NavigationMenuItem>
           ))}
         </NavigationMenuList>

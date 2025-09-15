@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+.NavigationMenuLink {
+  text-decoration: none;
+}
+
+.NavigationMenuLink[data-active] {
+  text-decoration: underline;
+}
