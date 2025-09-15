@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <NavBar />
-          {children}
+          <div className='max-w-[960px] mx-auto pt-16 px-24'>{children}</div>
         </ThemeProvider>
       </body>
     </html>
